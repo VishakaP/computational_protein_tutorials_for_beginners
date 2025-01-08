@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub-Style Website</title>
+    <title>Computational Tutorials for Proteins</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,6 +11,7 @@
             padding: 0;
             background-color: #f6f8fa;
             color: #24292e;
+            overflow: hidden; /* Ensures animations stay within the window */
         }
         header {
             background-color: #24292e;
@@ -22,6 +23,8 @@
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1; /* Ensures content stays above animations */
         }
         h1, h2 {
             color: #0366d6;
@@ -34,6 +37,15 @@
             position: absolute;
             bottom: 0;
             width: 100%;
+            z-index: 1; /* Keeps footer above animations */
+        }
+        .molecule {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #0366d6;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -51,5 +63,42 @@
     <footer>
         <p>&copy; 2025 My GitHub-Style Website. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Function to create a random molecule
+        function createMolecule() {
+            const molecule = document.createElement('div');
+            molecule.classList.add('molecule');
+            document.body.appendChild(molecule);
+
+            // Set random starting position
+            molecule.style.left = Math.random() * window.innerWidth + 'px';
+            molecule.style.top = Math.random() * window.innerHeight + 'px';
+
+            // Animate molecule's movement
+            animateMolecule(molecule);
+        }
+
+        // Function to animate a molecule
+        function animateMolecule(molecule) {
+            const duration = Math.random() * 5000 + 2000; // Random duration between 2s and 7s
+            const newLeft = Math.random() * window.innerWidth;
+            const newTop = Math.random() * window.innerHeight;
+
+            molecule.animate([
+                { transform: `translate(${molecule.style.left}, ${molecule.style.top})` },
+                { transform: `translate(${newLeft}px, ${newTop}px)` }
+            ], {
+                duration: duration,
+                iterations: Infinity,
+                easing: 'linear',
+            });
+        }
+
+        // Create multiple molecules
+        for (let i = 0; i < 20; i++) {
+            createMolecule();
+        }
+    </script>
 </body>
 </html>
